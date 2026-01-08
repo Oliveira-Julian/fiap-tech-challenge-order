@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodChallenge.Order.Adapter\FoodChallenge.Order.Adapter.csproj" />
+    <ProjectReference Include="..\FoodChallenge.Order.Application\FoodChallenge.Order.Application.csproj" />
+    <ProjectReference Include="..\FoodChallenge.Infrastructure.Data.Postgres\FoodChallenge.Infrastructure.Data.Postgres.csproj" />
+  </ItemGroup>
+
+</Project>

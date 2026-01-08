@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: food-challenge-configmap
+  namespace: fiap-tech-challenge
+data:
+  TZ: "America/Sao_Paulo"
+  ASPNETCORE_URLS: "http://+:5000"
+  ASPNETCORE_ENVIRONMENT: "Production"
