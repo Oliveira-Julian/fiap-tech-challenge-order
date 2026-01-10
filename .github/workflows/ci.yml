@@ -1,0 +1,84 @@
+name: CI - Build, Test & SonarQube
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  PROJECT_PATH: 'src/FoodChallenge.Order'
+  SOLUTION_FILE: 'src/FoodChallenge.Order/FoodChallenge.Order.sln'
+
+jobs:
+  build-test-sonar:
+    name: Build, Test & Analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java (para SonarScanner)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - name: Install Sonar Scanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Restore dependencies
+        working-directory: ./src/FoodChallenge.Order
+        run: dotnet restore
+
+      - name: SonarCloud - Begin
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          dotnet sonarscanner begin \
+            /k:"${{ secrets.SONAR_PROJECT_KEY }}" \
+            /o:"${{ secrets.SONAR_ORG }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.cs.opencover.reportsPaths="**/TestResults/coverage.opencover.xml" \
+            /d:sonar.coverage.exclusions="**/Migrations/**"
+
+      - name: Build solution
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: dotnet build --no-restore
+
+      - name: Test with coverage
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: |
+          dotnet test ./FoodChallenge.Order.UnitTests \
+            --no-build \
+            -p:CollectCoverage=true \
+            -p:CoverletOutputFormat=opencover \
+            -p:CoverletOutput=../TestResults/coverage.opencover.xml
+
+      - name: SonarCloud - End
+        working-directory: ${{ env.PROJECT_PATH }}
+        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
