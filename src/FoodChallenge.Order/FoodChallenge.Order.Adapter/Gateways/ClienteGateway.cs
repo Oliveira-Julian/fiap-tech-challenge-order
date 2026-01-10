@@ -1,6 +1,6 @@
-﻿using FoodChallenge.Order.Adapter.Mappers;
-using FoodChallenge.CrossCutting.Paging;
+﻿using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
+using FoodChallenge.Order.Adapter.Mappers;
 using FoodChallenge.Order.Application.Clientes;
 using FoodChallenge.Order.Domain.Clientes;
 using FoodChallenge.Order.Domain.Clientes.ValueObjects;

@@ -1,6 +1,4 @@
-﻿using FoodChallenge.Order.Adapter.Mappers;
-using FoodChallenge.Order.Adapter.Presenters;
-using FoodChallenge.Common.Entities;
+﻿using FoodChallenge.Common.Entities;
 using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Infrastructure.Clients.MercadoPago.Clients;
@@ -9,6 +7,8 @@ using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Cl
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.Interfaces;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.Interfaces;
 using FoodChallenge.Order.Adapter.Gateways;
+using FoodChallenge.Order.Adapter.Mappers;
+using FoodChallenge.Order.Adapter.Presenters;
 using FoodChallenge.Order.Application.Pedidos.Models.Requests;
 using FoodChallenge.Order.Application.Pedidos.Models.Responses;
 using FoodChallenge.Order.Application.Pedidos.UseCases;

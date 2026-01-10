@@ -4,7 +4,6 @@ using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Order.Application.Clientes;
 using FoodChallenge.Order.Application.Clientes.UseCases;
 using FoodChallenge.Order.Domain.Clientes;
-using FoodChallenge.Order.UnitTests;
 using Moq;
 
 namespace FoodChallenge.Order.UnitTests.Clientes.UseCases;

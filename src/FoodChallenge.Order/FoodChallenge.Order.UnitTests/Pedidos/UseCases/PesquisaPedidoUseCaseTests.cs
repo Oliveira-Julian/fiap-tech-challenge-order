@@ -3,7 +3,6 @@ using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Order.Application.Pedidos;
 using FoodChallenge.Order.Application.Pedidos.UseCases;
 using FoodChallenge.Order.Domain.Pedidos;
-using FoodChallenge.Order.UnitTests;
 using FoodChallenge.Order.UnitTests.Mocks;
 using Moq;
 

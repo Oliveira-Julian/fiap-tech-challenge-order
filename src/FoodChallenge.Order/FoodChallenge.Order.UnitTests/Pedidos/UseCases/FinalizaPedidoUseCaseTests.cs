@@ -6,7 +6,6 @@ using FoodChallenge.Order.Application.Pedidos.UseCases;
 using FoodChallenge.Order.Domain.Enums;
 using FoodChallenge.Order.Domain.Globalization;
 using FoodChallenge.Order.Domain.Pedidos;
-using FoodChallenge.Order.UnitTests;
 using FoodChallenge.Order.UnitTests.Mocks;
 using Moq;
 

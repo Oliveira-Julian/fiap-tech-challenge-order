@@ -6,6 +6,9 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    
+    <!-- Exclude projects from coverage -->
+    <ExcludeByFile>**/FoodChallenge.Infrastructure*/**/*.cs;**/FoodChallenge.Order.UnitTests/**/*.cs</ExcludeByFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +28,8 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodChallenge.Common\FoodChallenge.Common.csproj" />
     <ProjectReference Include="..\FoodChallenge.Order.Application\FoodChallenge.Order.Application.csproj" />
+    <ProjectReference Include="..\FoodChallenge.Order.Adapter\FoodChallenge.Order.Adapter.csproj" />
+    <ProjectReference Include="..\FoodChallenge.Infrastructure.Data.Postgres\FoodChallenge.Infrastructure.Data.Postgres.csproj" />
   </ItemGroup>
 
   <ItemGroup>

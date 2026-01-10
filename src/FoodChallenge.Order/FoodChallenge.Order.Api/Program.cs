@@ -1,8 +1,8 @@
-using FoodChallenge.Order.Api.Filters;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Infrastructure.Clients.MercadoPago;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Ioc;
+using FoodChallenge.Order.Api.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

@@ -1,8 +1,8 @@
+using FoodChallenge.Common.Entities;
+using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Order.Adapter.Controllers;
 using FoodChallenge.Order.Application.Produtos.Models.Reponses;
 using FoodChallenge.Order.Application.Produtos.Models.Requests;
-using FoodChallenge.Common.Entities;
-using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Order.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
 

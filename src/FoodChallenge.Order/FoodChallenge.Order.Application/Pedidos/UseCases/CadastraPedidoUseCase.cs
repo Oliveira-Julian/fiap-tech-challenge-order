@@ -4,7 +4,7 @@ using FoodChallenge.Order.Application.Clientes;
 using FoodChallenge.Order.Application.Pagamentos;
 using FoodChallenge.Order.Application.Pedidos.Interfaces;
 using FoodChallenge.Order.Application.Pedidos.Specifications;
-using FoodChallenge.Order.Application.Preparos;
+using FoodChallenge.Order.Application.Produtos;
 using FoodChallenge.Order.Domain.Clientes;
 using FoodChallenge.Order.Domain.Clientes.ValueObjects;
 using FoodChallenge.Order.Domain.Constants;

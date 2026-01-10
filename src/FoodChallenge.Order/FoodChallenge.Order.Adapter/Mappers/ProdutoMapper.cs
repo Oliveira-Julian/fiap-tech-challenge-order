@@ -1,6 +1,6 @@
-﻿using FoodChallenge.Order.Adapter.Mappers;
-using FoodChallenge.CrossCutting.Paging;
+﻿using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos;
+using FoodChallenge.Order.Adapter.Mappers;
 using FoodChallenge.Order.Application.Produtos.Models.Requests;
 using FoodChallenge.Order.Domain.Enums;
 using FoodChallenge.Order.Domain.Produtos;

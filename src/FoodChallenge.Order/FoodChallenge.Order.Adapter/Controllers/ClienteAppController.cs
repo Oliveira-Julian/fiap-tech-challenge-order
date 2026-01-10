@@ -1,11 +1,11 @@
-﻿using FoodChallenge.Order.Adapter.Mappers;
-using FoodChallenge.Order.Adapter.Presenters;
-using FoodChallenge.Common.Entities;
+﻿using FoodChallenge.Common.Entities;
 using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Order.Adapter.Gateways;
+using FoodChallenge.Order.Adapter.Mappers;
+using FoodChallenge.Order.Adapter.Presenters;
 using FoodChallenge.Order.Application.Clientes.Models.Requests;
 using FoodChallenge.Order.Application.Clientes.Models.Responses;
 using FoodChallenge.Order.Application.Clientes.UseCases;

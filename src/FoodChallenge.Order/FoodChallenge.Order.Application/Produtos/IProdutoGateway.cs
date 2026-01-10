@@ -1,7 +1,7 @@
 ﻿using FoodChallenge.CrossCutting.Paging;
 using FoodChallenge.Order.Domain.Produtos;
 
-namespace FoodChallenge.Order.Application.Preparos;
+namespace FoodChallenge.Order.Application.Produtos;
 
 public interface IProdutoGateway
 {
