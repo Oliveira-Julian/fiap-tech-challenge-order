@@ -1,0 +1,123 @@
+﻿CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+                                                       "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+    );
+
+START TRANSACTION;
+CREATE TABLE "CLIENTE" (
+                           "ID" uuid NOT NULL,
+                           "CPF" text,
+                           "NOME" text,
+                           "EMAIL" text,
+                           "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                           "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                           "ATIVO" boolean NOT NULL DEFAULT FALSE,
+                           "DATA_EXCLUSAO" timestamp with time zone,
+                           CONSTRAINT "PK_CLIENTE" PRIMARY KEY ("ID")
+);
+
+CREATE TABLE "PRODUTO" (
+                           "ID" uuid NOT NULL,
+                           "CATEGORIA" integer NOT NULL,
+                           "NOME" text,
+                           "DESCRICAO" text,
+                           "PRECO" numeric NOT NULL,
+                           "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                           "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                           "ATIVO" boolean NOT NULL DEFAULT FALSE,
+                           "DATA_EXCLUSAO" timestamp with time zone,
+                           CONSTRAINT "PK_PRODUTO" PRIMARY KEY ("ID")
+);
+
+CREATE TABLE "PEDIDO" (
+                          "ID" uuid NOT NULL,
+                          "ID_CLIENTE" uuid NOT NULL,
+                          "ID_PAGAMENTO" uuid,
+                          "CODIGO" text NOT NULL,
+                          "VALOR_TOTAL" numeric NOT NULL,
+                          "STATUS" integer NOT NULL,
+                          "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                          "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                          "ATIVO" boolean NOT NULL DEFAULT FALSE,
+                          "DATA_EXCLUSAO" timestamp with time zone,
+                          CONSTRAINT "PK_PEDIDO" PRIMARY KEY ("ID"),
+                          CONSTRAINT "FK_PEDIDO_CLIENTE_ID_CLIENTE" FOREIGN KEY ("ID_CLIENTE") REFERENCES "CLIENTE" ("ID") ON DELETE RESTRICT
+);
+
+CREATE TABLE "PRODUTO_IMAGEM" (
+                                  "ID" uuid NOT NULL,
+                                  "ID_PRODUTO" uuid,
+                                  "NOME" character varying(250) NOT NULL,
+                                  "TIPO" character varying(100) NOT NULL,
+                                  "TAMANHO" numeric NOT NULL,
+                                  "CONTEUDO" bytea NOT NULL,
+                                  "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                  "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                  "ATIVO" boolean NOT NULL DEFAULT FALSE,
+                                  "DATA_EXCLUSAO" timestamp with time zone,
+                                  CONSTRAINT "PK_PRODUTO_IMAGEM" PRIMARY KEY ("ID"),
+                                  CONSTRAINT "FK_PRODUTO_IMAGEM_PRODUTO" FOREIGN KEY ("ID_PRODUTO") REFERENCES "PRODUTO" ("ID")
+);
+
+CREATE TABLE "ORDEM_PEDIDO" (
+                                "ID" uuid NOT NULL,
+                                "ID_PEDIDO" uuid NOT NULL,
+                                "STATUS" integer NOT NULL,
+                                "DATA_INICIO_PREPARACAO" timestamp with time zone,
+                                "DATA_FIM_PREPARACAO" timestamp with time zone,
+                                "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                CONSTRAINT "PK_ORDEM_PEDIDO" PRIMARY KEY ("ID"),
+                                CONSTRAINT "FK_ORDEM_PEDIDO_PEDIDO_ID_PEDIDO" FOREIGN KEY ("ID_PEDIDO") REFERENCES "PEDIDO" ("ID") ON DELETE RESTRICT
+);
+
+CREATE TABLE "PEDIDO_ITEM" (
+                               "ID" uuid NOT NULL,
+                               "ID_PRODUTO" uuid NOT NULL,
+                               "ID_PEDIDO" uuid NOT NULL,
+                               "CODIGO" text NOT NULL,
+                               "VALOR" numeric NOT NULL,
+                               "QUANTIDADE" integer NOT NULL,
+                               "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                               "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                               "ATIVO" boolean NOT NULL DEFAULT FALSE,
+                               "DATA_EXCLUSAO" timestamp with time zone,
+                               CONSTRAINT "PK_PEDIDO_ITEM" PRIMARY KEY ("ID"),
+                               CONSTRAINT "FK_PEDIDO_ITEM_PEDIDO_ID_PEDIDO" FOREIGN KEY ("ID_PEDIDO") REFERENCES "PEDIDO" ("ID") ON DELETE CASCADE,
+                               CONSTRAINT "FK_PEDIDO_ITEM_PRODUTO_ID_PRODUTO" FOREIGN KEY ("ID_PRODUTO") REFERENCES "PRODUTO" ("ID") ON DELETE RESTRICT
+);
+
+CREATE TABLE "PEDIDO_PAGAMENTO" (
+                                    "ID" uuid NOT NULL,
+                                    "ID_PEDIDO" uuid,
+                                    "CHAVE_MERCADO_PAGO_ORDEM" uuid,
+                                    "ID_MERCADO_PAGO_ORDEM" text,
+                                    "ID_MERCADO_PAGO_PAGAMENTO" text,
+                                    "STATUS" integer NOT NULL,
+                                    "VALOR" numeric NOT NULL,
+                                    "METODO" integer NOT NULL,
+                                    "QrCode" text,
+                                    "DATA_CRIACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                    "DATA_ATUALIZACAO" timestamp with time zone NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+                                    CONSTRAINT "PK_PEDIDO_PAGAMENTO" PRIMARY KEY ("ID"),
+                                    CONSTRAINT "FK_PEDIDO_PAGAMENTO_PEDIDO_ID_PEDIDO" FOREIGN KEY ("ID_PEDIDO") REFERENCES "PEDIDO" ("ID")
+);
+
+CREATE UNIQUE INDEX "IX_ORDEM_PEDIDO_ID_PEDIDO" ON "ORDEM_PEDIDO" ("ID_PEDIDO");
+
+CREATE INDEX "IX_PEDIDO_ID_CLIENTE" ON "PEDIDO" ("ID_CLIENTE");
+
+CREATE INDEX "IX_PEDIDO_ITEM_ID_PEDIDO" ON "PEDIDO_ITEM" ("ID_PEDIDO");
+
+CREATE INDEX "IX_PEDIDO_ITEM_ID_PRODUTO" ON "PEDIDO_ITEM" ("ID_PRODUTO");
+
+CREATE UNIQUE INDEX "IX_PEDIDO_PAGAMENTO_ID_PEDIDO" ON "PEDIDO_PAGAMENTO" ("ID_PEDIDO");
+
+CREATE INDEX "IX_PRODUTO_IMAGEM_ID_PRODUTO" ON "PRODUTO_IMAGEM" ("ID_PRODUTO");
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20250805002359_Initial', '9.0.5');
+
+COMMIT;
+

@@ -1,0 +1,63 @@
+services:
+  foodchallenge_db:
+    image: postgres
+    container_name: foodchallenge_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - foodchallenge_data:/var/lib/postgresql/data
+    networks:
+      - foodchallenge_network
+
+  foodchallenge_order_migrations:
+    image: foodchallenge/migrations
+    container_name: foodchallenge_order_migrations
+    build:
+      context: ../../src/FoodChallenge.Order
+      dockerfile: ../../tools/docker/build/migrations.postgres.Dockerfile
+      target: migrations
+    environment:
+      ConnectionStrings__DbConnection: ${ConnectionStrings__DbConnection}
+    depends_on:
+      foodchallenge_db:
+        condition: service_healthy
+    networks:
+      - foodchallenge_network
+
+  foodchallenge_order_api:
+    image: foodchallenge/order-api
+    container_name: foodchallenge_order_api
+    build:
+      context: ../../src/FoodChallenge.Order
+      dockerfile: ../../tools/docker/build/dotnet.web-api.Dockerfile
+      target: final
+    environment:
+      ConnectionStrings__DbConnection: ${ConnectionStrings__DbConnection}
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+    depends_on:
+      foodchallenge_db:
+        condition: service_healthy
+      foodchallenge_migrations:
+        condition: service_completed_successfully
+    networks:
+      - foodchallenge_network
+    ports:
+      - "5002:5002"
+
+volumes:
+  foodchallenge_data:
+    driver: local
+
+networks:
+  foodchallenge_network:
+    driver: bridge

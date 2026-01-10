@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: food-challenge-api
+  namespace: fiap-tech-challenge
+spec:
+  selector:
+    matchLabels:
+      app: food-challenge-api
+  template:
+    metadata:
+      labels:
+        app: food-challenge-api
+    spec:
+      containers:
+        - name: food-challenge-api
+          image: julianoliveira/foodchallenge-api:latest
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1024Mi"
+          envFrom:
+            - configMapRef:
+                name: food-challenge-configmap
+            - secretRef:
+                name: food-challenge-secrets

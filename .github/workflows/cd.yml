@@ -1,0 +1,60 @@
+name: CD - Deploy AWS App Runner (.NET 9)
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: fiap-tech-challenge-order
+  APP_RUNNER_SERVICE: order-app-runner
+  DOCKERFILE_PATH: tools/docker/build/dotnet.web-api.Dockerfile
+  DOTNET_VERSION: '9.0.x'
+  PROJECT_PATH: 'src/FoodChallenge.Order'
+
+jobs:
+  deploy:
+    name: Deploy para AWS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH }}
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to AWS App Runner
+        run: |
+          aws apprunner update-service \
+            --service-arn ${{ secrets.APP_RUNNER_SERVICE_ARN }} \
+            --source-configuration "ImageRepository={ImageIdentifier=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }},ImageRepositoryType=ECR,ImageConfiguration={Port=8080}}" \
+            --region ${{ env.AWS_REGION }}
+          
+          echo "✅ Deploy iniciado no App Runner"
+          echo "🔗 Service: ${{ env.APP_RUNNER_SERVICE }}"
+          echo "📦 Image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}"
