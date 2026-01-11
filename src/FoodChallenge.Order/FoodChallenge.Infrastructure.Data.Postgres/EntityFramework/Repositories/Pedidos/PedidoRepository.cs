@@ -11,7 +11,6 @@ public class PedidoRepository(EntityFrameworkContext context)
     {
         return await GetQuery(tracking)
             .Include(p => p.Cliente)
-            .Include(p => p.Pagamento)
             .Include(p => p.Itens)
             .ThenInclude(p => p.Produto)
             .FirstOrDefaultAsync(entity => entity.Id == id, cancellationToken);
