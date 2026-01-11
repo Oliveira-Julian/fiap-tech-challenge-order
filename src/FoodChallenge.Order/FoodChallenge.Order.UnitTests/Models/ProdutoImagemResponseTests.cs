@@ -154,7 +154,7 @@ public class ProdutoImagemResponseTests : TestBase
     public void DevePermitirConteudoVazio()
     {
         // Arrange
-        var response = new ProdutoImagemResponse { Conteudo = new byte[0] };
+        var response = new ProdutoImagemResponse { Conteudo = [] };
 
         // Act & Assert
         Assert.NotNull(response.Conteudo);

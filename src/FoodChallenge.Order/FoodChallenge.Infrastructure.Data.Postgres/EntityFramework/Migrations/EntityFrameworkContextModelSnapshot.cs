@@ -242,49 +242,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                     b.ToTable("PEDIDO_ITEM", (string)null);
                 });
 
-            modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos.OrdemPedidoEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("ID");
-
-                    b.Property<DateTime>("DataAtualizacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_ATUALIZACAO")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_CRIACAO")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime?>("DataFimPreparacao")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_FIM_PREPARACAO");
-
-                    b.Property<DateTime?>("DataInicioPreparacao")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_INICIO_PREPARACAO");
-
-                    b.Property<Guid>("IdPedido")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ID_PEDIDO");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("STATUS");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdPedido")
-                        .IsUnique();
-
-                    b.ToTable("ORDEM_PEDIDO", (string)null);
-                });
-
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.ProdutoEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -436,16 +393,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos.OrdemPedidoEntity", b =>
-                {
-                    b.HasOne("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", "Pedido")
-                        .WithOne("OrdemPedido")
-                        .HasForeignKey("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos.OrdemPedidoEntity", "IdPedido")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Pedido");
-                });
-
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.ProdutoImagemEntity", b =>
                 {
                     b.HasOne("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.ProdutoEntity", "Produto")
@@ -465,8 +412,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", b =>
                 {
                     b.Navigation("Itens");
-
-                    b.Navigation("OrdemPedido");
 
                     b.Navigation("Pagamento");
                 });

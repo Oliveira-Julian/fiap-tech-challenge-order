@@ -30,7 +30,7 @@ public class FiltrarProdutoRequestTests : TestBase
         Assert.Equal(10, request.SizePage);
         Assert.Equal("Nome", request.FieldOrdenation);
         Assert.True(request.OrdenationAsc);
-        Assert.Equal(new[] { 1, 2 }, request.Categorias);
+        Assert.Equal([1, 2], request.Categorias);
     }
 
     [Fact]
