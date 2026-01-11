@@ -15,7 +15,7 @@ public static class PagamentoPresenter
             QrCode = pagamento.QrCode,
             Status = (int)pagamento.Status,
             DescricaoStatus = pagamento.Status.GetDescription(),
-            IdMercadoPagoPagamento = pagamento.IdMercadoPagoPagamento
+            Id = pagamento.Id
         };
     }
 }

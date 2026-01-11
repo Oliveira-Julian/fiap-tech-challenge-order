@@ -1,6 +1,7 @@
 ﻿using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Order.Application.Clientes;
+using FoodChallenge.Order.Application.Pagamentos;
 using FoodChallenge.Order.Application.Pedidos.Interfaces;
 using FoodChallenge.Order.Application.Pedidos.Specifications;
 using FoodChallenge.Order.Application.Produtos;
@@ -17,8 +18,8 @@ public class CadastraPedidoUseCase(
     IUnitOfWork unitOfWork,
     IClienteGateway clienteGateway,
     IPedidoGateway pedidoGateway,
-    //IPagamentoGateway pagamentoGateway,
-    IProdutoGateway produtoGateway) : ICadastraPedidoUseCase
+    IProdutoGateway produtoGateway,
+    IPagamentoGateway pagamentoGateway) : ICadastraPedidoUseCase
 {
     private readonly ILogger logger = Log.ForContext<CadastraPedidoUseCase>();
 
@@ -45,13 +46,17 @@ public class CadastraPedidoUseCase(
 
             unitOfWork.BeginTransaction();
             var pedidoCadastrado = await pedidoGateway.CadastrarPedidoAsync(pedido, cancellationToken);
-
-            // TODO: Aciona serviço de pgamento
-            /*var pagamento = await pagamentoGateway.CadastrarPedidoMercadoPagoAsync(pedidoCadastrado, cancellationToken);
-            await pagamentoGateway.AdicionarPagamentoAsync(pagamento, cancellationToken);*/
             await unitOfWork.CommitAsync();
 
+            var pagamento = await pagamentoGateway.CadastrarPagamentoAsync(pedidoCadastrado, cancellationToken);
+
+            //unitOfWork.BeginTransaction();
+            pedidoCadastrado.AdicionarPagamento(pagamento);
+            //pedidoGateway.AtualizarPedido(pedido);
+            //await unitOfWork.CommitAsync();
+
             pedidoCadastrado = await pedidoGateway.ObterPedidoComRelacionamentosAsync(pedidoCadastrado.Id.Value, cancellationToken);
+            pedidoCadastrado.AdicionarPagamento(pagamento);
 
             logger.Information(Logs.FimExecucaoServico, nameof(CadastraPedidoUseCase), nameof(ExecutarAsync), pedidoCadastrado);
 

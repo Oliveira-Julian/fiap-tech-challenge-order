@@ -6,7 +6,7 @@ using Serilog;
 
 namespace FoodChallenge.Order.Application.Pedidos.UseCases;
 
-public class PesquisaPedidoUseCase(IPedidoGateway pedidoGateway) : IPesqusaPedidoUseCase
+public class PesquisaPedidoUseCase(IPedidoGateway pedidoGateway) : IPesquisaPedidoUseCase
 {
     private readonly ILogger logger = Log.ForContext<PesquisaPedidoUseCase>();
 

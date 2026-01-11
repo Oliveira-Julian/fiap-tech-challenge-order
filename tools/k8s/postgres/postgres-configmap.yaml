@@ -4,5 +4,5 @@ metadata:
   name: postgres-configmap
   namespace: fiap-tech-challenge
 data:
-  POSTGRES_DB: foodchallenge_db
+  POSTGRES_DB: foodchallenge_postgres_db
   POSTGRES_USER: root

@@ -1,4 +1,5 @@
 using FoodChallenge.Common.Validators;
+using FoodChallenge.Infrastructure.Clients.Payments;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Ioc;
 using FoodChallenge.Order.Api.Filters;
@@ -9,9 +10,9 @@ var configuration = builder.Configuration;
 builder.Services.AddEfPostgresDependency(configuration.GetConnectionString("DbConnection") ?? string.Empty);
 builder.Services.AddControllersDependency();
 builder.Services.AddRepositoryDependency();
-
-// Configurar validação de tokens contra OpenIdDict
 builder.Services.AddOpenIdDictValidation(configuration);
+
+BootstrapPayments.Configure(builder.Services, configuration);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options =>

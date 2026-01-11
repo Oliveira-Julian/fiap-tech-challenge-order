@@ -19,8 +19,14 @@ services:
       dockerfile: ../../tools/docker/build/dotnet.web-api.Dockerfile
       target: final
     environment:
-      ConnectionStrings__DbConnection: ${ConnectionStrings__DbConnection}
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__DbConnection: ${ConnectionStrings__DbConnection}
+      OAuth__Authority: ${OAuth__Authority}
+      FoodChallengePayments__BaseUrl: ${FoodChallengePayments__BaseUrl}
+      FoodChallengePayments__AuthUrl: ${FoodChallengePayments__AuthUrl}
+      FoodChallengePayments__Timeout: ${FoodChallengePayments__Timeout}
+      FoodChallengePayments__ClientId: ${FoodChallengePayments__ClientId}
+      FoodChallengePayments__ClientSecret: ${FoodChallengePayments__ClientSecret}
     depends_on:
       foodchallenge_order_migrations:
         condition: service_completed_successfully
