@@ -11,7 +11,7 @@ namespace FoodChallenge.Order.Api.Controllers;
 
 [ApiController]
 [Route("[Controller]")]
-[Authorize]
+[Authorize(Policy = AuthorizationPolicies.ConfigurationsApi)]
 public class ProdutoController(
     ProdutoAppController produtoAppController,
     ILogger<ProdutoController> logger) : ControllerBase

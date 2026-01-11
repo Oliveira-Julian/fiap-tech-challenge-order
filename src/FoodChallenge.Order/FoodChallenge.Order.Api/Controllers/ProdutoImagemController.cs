@@ -10,7 +10,7 @@ namespace FoodChallenge.Order.Api.Controllers;
 
 [ApiController]
 [Route("produto/{id}/imagem")]
-[Authorize]
+[Authorize(Policy = AuthorizationPolicies.ConfigurationsApi)]
 public class ProdutoImagemController(
     ProdutoAppController produtoAppController,
     ILogger<ProdutoImagemController> logger) : ControllerBase
