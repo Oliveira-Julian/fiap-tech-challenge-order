@@ -3,12 +3,14 @@ using FoodChallenge.Order.Adapter.Controllers;
 using FoodChallenge.Order.Application.Produtos.Imagem.Models.Requests;
 using FoodChallenge.Order.Application.Produtos.Models.Reponses;
 using FoodChallenge.Order.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodChallenge.Order.Api.Controllers;
 
 [ApiController]
 [Route("produto/{id}/imagem")]
+[Authorize]
 public class ProdutoImagemController(
     ProdutoAppController produtoAppController,
     ILogger<ProdutoImagemController> logger) : ControllerBase
