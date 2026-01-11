@@ -1,7 +1,7 @@
+using FoodChallenge.Common.Entities;
 using FoodChallenge.Order.Adapter.Controllers;
 using FoodChallenge.Order.Application.Produtos.Imagem.Models.Requests;
 using FoodChallenge.Order.Application.Produtos.Models.Reponses;
-using FoodChallenge.Common.Entities;
 using FoodChallenge.Order.Domain.Constants;
 using Microsoft.AspNetCore.Mvc;
 

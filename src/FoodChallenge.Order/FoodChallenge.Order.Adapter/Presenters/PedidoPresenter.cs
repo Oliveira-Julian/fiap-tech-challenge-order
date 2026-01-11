@@ -1,6 +1,5 @@
 ﻿using FoodChallenge.Common.Extensions;
 using FoodChallenge.CrossCutting.Paging;
-using FoodChallenge.Order.Adapter.Presenters;
 using FoodChallenge.Order.Application.Pedidos.Models.Responses;
 using FoodChallenge.Order.Domain.Pedidos;
 

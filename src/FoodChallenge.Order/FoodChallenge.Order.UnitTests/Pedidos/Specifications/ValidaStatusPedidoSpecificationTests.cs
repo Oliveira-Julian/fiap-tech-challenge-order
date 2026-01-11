@@ -2,7 +2,6 @@
 using FoodChallenge.Order.Domain.Enums;
 using FoodChallenge.Order.Domain.Globalization;
 using FoodChallenge.Order.Domain.Pedidos;
-using FoodChallenge.Order.UnitTests;
 
 namespace FoodChallenge.Order.UnitTests.Pedidos.Specifications;
 

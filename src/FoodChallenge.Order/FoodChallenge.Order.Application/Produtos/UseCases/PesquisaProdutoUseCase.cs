@@ -1,5 +1,4 @@
 ﻿using FoodChallenge.CrossCutting.Paging;
-using FoodChallenge.Order.Application.Preparos;
 using FoodChallenge.Order.Application.Produtos.Interfaces;
 using FoodChallenge.Order.Domain.Constants;
 using FoodChallenge.Order.Domain.Produtos;

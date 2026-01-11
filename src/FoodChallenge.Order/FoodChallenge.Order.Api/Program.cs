@@ -1,8 +1,7 @@
-using FoodChallenge.Order.Api.Filters;
 using FoodChallenge.Common.Validators;
-using FoodChallenge.Infrastructure.Clients.MercadoPago;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Ioc;
+using FoodChallenge.Order.Api.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -10,8 +9,6 @@ var configuration = builder.Configuration;
 builder.Services.AddEfPostgresDependency(configuration.GetConnectionString("DbConnection") ?? string.Empty);
 builder.Services.AddControllersDependency();
 builder.Services.AddRepositoryDependency();
-
-BootstrapMercadoPago.Configure(builder.Services, configuration);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options =>
@@ -27,6 +24,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddScoped(_ => new ValidationContext());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHeaderPropagation();
 builder.AddDefaultHealthChecks();
 
 const string originsPolicy = "AllowAllOrigins";

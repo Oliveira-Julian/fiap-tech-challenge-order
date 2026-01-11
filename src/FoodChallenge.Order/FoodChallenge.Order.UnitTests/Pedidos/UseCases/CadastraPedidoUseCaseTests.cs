@@ -6,11 +6,10 @@ using FoodChallenge.Order.Application.Clientes;
 using FoodChallenge.Order.Application.Pagamentos;
 using FoodChallenge.Order.Application.Pedidos;
 using FoodChallenge.Order.Application.Pedidos.UseCases;
-using FoodChallenge.Order.Application.Preparos;
+using FoodChallenge.Order.Application.Produtos;
 using FoodChallenge.Order.Domain.Clientes;
 using FoodChallenge.Order.Domain.Clientes.ValueObjects;
 using FoodChallenge.Order.Domain.Pedidos;
-using FoodChallenge.Order.UnitTests;
 using FoodChallenge.Order.UnitTests.Mocks;
 using Moq;
 
@@ -23,7 +22,6 @@ public class CadastraPedidoUseCaseTests : TestBase
     private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly Mock<IClienteGateway> _clienteGateway;
     private readonly Mock<IPedidoGateway> _pedidoGateway;
-    private readonly Mock<IPagamentoGateway> _pagamentoGateway;
     private readonly Mock<IProdutoGateway> _produtoGateway;
     private readonly CadastraPedidoUseCase _useCase;
 
@@ -34,7 +32,6 @@ public class CadastraPedidoUseCaseTests : TestBase
         _unitOfWork = new Mock<IUnitOfWork>();
         _clienteGateway = new Mock<IClienteGateway>();
         _pedidoGateway = new Mock<IPedidoGateway>();
-        _pagamentoGateway = new Mock<IPagamentoGateway>();
         _produtoGateway = new Mock<IProdutoGateway>();
 
         _useCase = new CadastraPedidoUseCase(
@@ -42,7 +39,6 @@ public class CadastraPedidoUseCaseTests : TestBase
             _unitOfWork.Object,
             _clienteGateway.Object,
             _pedidoGateway.Object,
-            _pagamentoGateway.Object,
             _produtoGateway.Object
         );
     }
@@ -72,8 +68,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(pedidoCadastrado);
 
-        _pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(pagamento);
+        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pagamento);*/
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(pedidoCadastrado.Id.Value, It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(pedidoCadastrado);
@@ -127,8 +123,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new Pedido { Id = Guid.NewGuid() });
 
-        _pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(PagamentoMock.CriarValido());
+        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(PagamentoMock.CriarValido());*/
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(new Pedido());
@@ -162,8 +158,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new Pedido { Id = Guid.NewGuid() });
 
-        _pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(PagamentoMock.CriarValido());
+        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(PagamentoMock.CriarValido());*/
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(new Pedido());
@@ -204,5 +200,4 @@ public class CadastraPedidoUseCaseTests : TestBase
         await Assert.ThrowsAsync<Exception>(() => _useCase.ExecutarAsync(cpf, itens, CancellationToken.None));
         _unitOfWork.Verify(x => x.RollbackAsync(), Times.Once);
     }
-
 }

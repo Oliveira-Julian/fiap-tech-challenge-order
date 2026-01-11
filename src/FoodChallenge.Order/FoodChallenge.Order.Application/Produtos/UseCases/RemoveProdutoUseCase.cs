@@ -1,7 +1,6 @@
 ﻿using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Order.Application.Pedidos;
-using FoodChallenge.Order.Application.Preparos;
 using FoodChallenge.Order.Application.Produtos.Interfaces;
 using FoodChallenge.Order.Application.Produtos.Specifications;
 using FoodChallenge.Order.Domain.Constants;

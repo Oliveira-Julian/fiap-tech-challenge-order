@@ -1,14 +1,12 @@
-﻿using FoodChallenge.Order.Adapter.Mappers;
-using FoodChallenge.Order.Adapter.Presenters;
-using FoodChallenge.Common.Entities;
+﻿using FoodChallenge.Common.Entities;
 using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
-using FoodChallenge.Infrastructure.Clients.MercadoPago.Clients;
-using FoodChallenge.Infrastructure.Clients.MercadoPago.Settings;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.Interfaces;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.Interfaces;
 using FoodChallenge.Order.Adapter.Gateways;
+using FoodChallenge.Order.Adapter.Mappers;
+using FoodChallenge.Order.Adapter.Presenters;
 using FoodChallenge.Order.Application.Pedidos.Models.Requests;
 using FoodChallenge.Order.Application.Pedidos.Models.Responses;
 using FoodChallenge.Order.Application.Pedidos.UseCases;
@@ -19,11 +17,8 @@ public class PedidoAppController(ValidationContext validationContext,
     IUnitOfWork unitOfWork,
     IClienteRepository clienteDataSource,
     IPedidoRepository pedidoDataSource,
-    IPedidoPagamentoRepository pagamentoDataSource,
     IProdutoRepository produtoDataSource,
-    IProdutoImagemRepository produtoImagemDataSource,
-    IMercadoPagoClient mercadoPagoClient,
-    MercadoPagoSettings mercadoPagoSettings)
+    IProdutoImagemRepository produtoImagemDataSource)
 {
     public async Task<Resposta> ObterPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
     {
@@ -38,9 +33,9 @@ public class PedidoAppController(ValidationContext validationContext,
     {
         var clienteGateway = new ClienteGateway(clienteDataSource);
         var pedidoGateway = new PedidoGateway(pedidoDataSource);
-        var pagamentoGateway = new PagamentoGateway(pagamentoDataSource, mercadoPagoClient, mercadoPagoSettings);
+        //var pagamentoGateway = new PagamentoGateway(pagamentoDataSource, mercadoPagoClient, mercadoPagoSettings);
         var produtoGateway = new ProdutoGateway(produtoDataSource, produtoImagemDataSource);
-        var useCase = new CadastraPedidoUseCase(validationContext, unitOfWork, clienteGateway, pedidoGateway, pagamentoGateway, produtoGateway);
+        var useCase = new CadastraPedidoUseCase(validationContext, unitOfWork, clienteGateway, pedidoGateway, /*pagamentoGateway,*/ produtoGateway);
 
         var pedidoItens = request?.Itens?.Select(PedidoItemMapper.ToDomain);
         var pedidoRetorno = await useCase.ExecutarAsync(request?.Cpf, pedidoItens, cancellationToken);

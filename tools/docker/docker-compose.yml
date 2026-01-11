@@ -1,6 +1,6 @@
 services:
   foodchallenge_db:
-    image: postgres
+    image: postgres:17
     container_name: foodchallenge_db
     restart: always
     environment:
@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -20,7 +20,7 @@ services:
       - foodchallenge_network
 
   foodchallenge_order_migrations:
-    image: foodchallenge/migrations
+    image: foodchallenge/order-migrations
     container_name: foodchallenge_order_migrations
     build:
       context: ../../src/FoodChallenge.Order
@@ -47,12 +47,12 @@ services:
     depends_on:
       foodchallenge_db:
         condition: service_healthy
-      foodchallenge_migrations:
+      foodchallenge_order_migrations:
         condition: service_completed_successfully
     networks:
       - foodchallenge_network
     ports:
-      - "5002:5002"
+      - "5000:5000"
 
 volumes:
   foodchallenge_data:

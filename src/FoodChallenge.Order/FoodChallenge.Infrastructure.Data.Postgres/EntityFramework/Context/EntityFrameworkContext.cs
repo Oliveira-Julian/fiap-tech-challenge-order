@@ -2,8 +2,6 @@
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Mapping;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.Mapping;
-using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos;
-using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos.Mapping;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.Mapping;
 using LinqKit;
@@ -23,7 +21,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Context
         public DbSet<ProdutoEntity> Produto { get; set; }
         public DbSet<ProdutoImagemEntity> ProdutoImagem { get; set; }
         public DbSet<PagamentoEntity> PedidoPagamento { get; set; }
-        public DbSet<OrdemPedidoEntity> OrdemPedido { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,7 +40,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new ProdutoMapping());
             modelBuilder.ApplyConfiguration(new ProdutoImagemMapping());
             modelBuilder.ApplyConfiguration(new PedidoPagamentoMapping());
-            modelBuilder.ApplyConfiguration(new OrdemPedidoMapping());
         }
     }
 }

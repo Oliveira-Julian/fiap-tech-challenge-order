@@ -1,6 +1,5 @@
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Bases;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes;
-using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Preparos;
 
 namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos;
 
@@ -14,5 +13,4 @@ public class PedidoEntity : EntityBase
     public string Codigo { get; set; }
     public decimal ValorTotal { get; set; }
     public int Status { get; set; }
-    public OrdemPedidoEntity OrdemPedido { get; set; }
 }
