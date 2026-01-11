@@ -25,7 +25,6 @@ public static class PedidoMapper
             Status = (PedidoStatus)pedidoEntity.Status,
             ValorTotal = pedidoEntity.ValorTotal,
             Cliente = ClienteMapper.ToDomain(pedidoEntity.Cliente),
-            Pagamento = PagamentoMapper.ToDomain(pedidoEntity.Pagamento),
             Itens = pedidoEntity.Itens?.Select(PedidoItemMapper.ToDomain)
         };
     }
@@ -46,7 +45,6 @@ public static class PedidoMapper
             Ativo = pedido.Ativo,
             Status = (int)pedido.Status,
             ValorTotal = pedido.ValorTotal,
-            Pagamento = PagamentoMapper.ToEntity(pedido.Pagamento),
             Itens = pedido.Itens?.Select(PedidoItemMapper.ToEntity)?.ToList()
         };
     }

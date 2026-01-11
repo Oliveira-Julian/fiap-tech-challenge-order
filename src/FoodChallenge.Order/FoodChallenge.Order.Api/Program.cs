@@ -10,6 +10,9 @@ builder.Services.AddEfPostgresDependency(configuration.GetConnectionString("DbCo
 builder.Services.AddControllersDependency();
 builder.Services.AddRepositoryDependency();
 
+// Configurar validação de tokens contra OpenIdDict
+builder.Services.AddOpenIdDictValidation(configuration);
+
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options =>
     {
@@ -51,6 +54,7 @@ app.UseHeaderPropagation();
 app.MapHealthCheckDefaultEndpoints();
 app.UseCors(originsPolicy);
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

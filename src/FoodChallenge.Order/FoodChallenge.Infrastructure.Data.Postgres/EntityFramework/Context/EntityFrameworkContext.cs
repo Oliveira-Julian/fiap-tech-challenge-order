@@ -20,7 +20,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Context
         public DbSet<PedidoEntity> Pedido { get; set; }
         public DbSet<ProdutoEntity> Produto { get; set; }
         public DbSet<ProdutoImagemEntity> ProdutoImagem { get; set; }
-        public DbSet<PagamentoEntity> PedidoPagamento { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,7 +38,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new PedidoItemMapping());
             modelBuilder.ApplyConfiguration(new ProdutoMapping());
             modelBuilder.ApplyConfiguration(new ProdutoImagemMapping());
-            modelBuilder.ApplyConfiguration(new PedidoPagamentoMapping());
         }
     }
 }

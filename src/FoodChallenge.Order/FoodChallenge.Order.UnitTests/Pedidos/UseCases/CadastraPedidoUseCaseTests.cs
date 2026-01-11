@@ -3,7 +3,6 @@ using Bogus.Extensions.Brazil;
 using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Order.Application.Clientes;
-using FoodChallenge.Order.Application.Pagamentos;
 using FoodChallenge.Order.Application.Pedidos;
 using FoodChallenge.Order.Application.Pedidos.UseCases;
 using FoodChallenge.Order.Application.Produtos;

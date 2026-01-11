@@ -68,64 +68,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                     b.ToTable("CLIENTE", (string)null);
                 });
 
-            modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PagamentoEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("ID");
-
-                    b.Property<Guid?>("ChaveMercadoPagoOrdem")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CHAVE_MERCADO_PAGO_ORDEM");
-
-                    b.Property<DateTime>("DataAtualizacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_ATUALIZACAO")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DATA_CRIACAO")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("IdMercadoPagoOrdem")
-                        .HasColumnType("text")
-                        .HasColumnName("ID_MERCADO_PAGO_ORDEM");
-
-                    b.Property<string>("IdMercadoPagoPagamento")
-                        .HasColumnType("text")
-                        .HasColumnName("ID_MERCADO_PAGO_PAGAMENTO");
-
-                    b.Property<Guid?>("IdPedido")
-                        .HasColumnType("uuid")
-                        .HasColumnName("ID_PEDIDO");
-
-                    b.Property<int>("Metodo")
-                        .HasColumnType("integer")
-                        .HasColumnName("METODO");
-
-                    b.Property<string>("QrCode")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("STATUS");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("numeric")
-                        .HasColumnName("VALOR");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdPedido")
-                        .IsUnique();
-
-                    b.ToTable("PEDIDO_PAGAMENTO", (string)null);
-                });
-
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -353,16 +295,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                     b.ToTable("PRODUTO_IMAGEM", (string)null);
                 });
 
-            modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PagamentoEntity", b =>
-                {
-                    b.HasOne("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", "Pedido")
-                        .WithOne("Pagamento")
-                        .HasForeignKey("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PagamentoEntity", "IdPedido")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Pedido");
-                });
-
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", b =>
                 {
                     b.HasOne("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.ClienteEntity", "Cliente")
@@ -412,8 +344,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.PedidoEntity", b =>
                 {
                     b.Navigation("Itens");
-
-                    b.Navigation("Pagamento");
                 });
 
             modelBuilder.Entity("FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos.ProdutoEntity", b =>

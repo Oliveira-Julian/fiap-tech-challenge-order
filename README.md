@@ -55,7 +55,6 @@ A estrutura também está alinhada aos conceitos de **DDD (Domain-Driven Design)
 │     ├─ 03 - Frameworks and Drivers/
 │     │  ├─ FoodChallenge.Order.Api                                 # API REST (ponto de entrada da aplicação)
 │     │  ├─ FoodChallenge.Order.Common                              # Utilitários e constantes compartilhadas
-│     │  ├─ FoodChallenge.Order.Infrastructure.Clients.MercadoPago  # Integração com o Mercado Pago
 │     │  ├─ FoodChallenge.Order.Infrastructure.Data.Postgres        # Repositórios e DbContext (PostgreSQL)
 │     │  ├─ FoodChallenge.Order.Infrastructure.Http                 # Integrações HTTP externas
 │     │  └─ FoodChallenge.Order.Ioc                                 # Injeção de dependência e configurações
@@ -264,7 +263,7 @@ Os diagramas da arquitetura de infraestrutura e arquitetura limpa na visão macr
 ![Infra K8S](diagramas/k8s/infra_k8s.png)
 
 ## 📈 Fluxo de Requisições (Diagramas de Sequência)
-Os diagramas de sequência estão localizados na pasta `diagramas/sequencia/` e foram gerados em [PlantUML](https://plantuml.com/). Eles descrevem os fluxos de interação entre cliente, API, banco e o Mercado Pago.
+Os diagramas de sequência estão localizados na pasta `diagramas/sequencia/` e foram gerados em [PlantUML](https://plantuml.com/). Eles descrevem os fluxos de interação entre cliente, API e banco.
 
 ### Diagramas por Domínio
 

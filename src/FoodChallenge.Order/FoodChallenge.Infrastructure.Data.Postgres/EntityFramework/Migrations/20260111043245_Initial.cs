@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -131,32 +130,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PEDIDO_PAGAMENTO",
-                columns: table => new
-                {
-                    ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    ID_PEDIDO = table.Column<Guid>(type: "uuid", nullable: true),
-                    CHAVE_MERCADO_PAGO_ORDEM = table.Column<Guid>(type: "uuid", nullable: true),
-                    ID_MERCADO_PAGO_ORDEM = table.Column<string>(type: "text", nullable: true),
-                    ID_MERCADO_PAGO_PAGAMENTO = table.Column<string>(type: "text", nullable: true),
-                    STATUS = table.Column<int>(type: "integer", nullable: false),
-                    VALOR = table.Column<decimal>(type: "numeric", nullable: false),
-                    METODO = table.Column<int>(type: "integer", nullable: false),
-                    QrCode = table.Column<string>(type: "text", nullable: true),
-                    DATA_CRIACAO = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DATA_ATUALIZACAO = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PEDIDO_PAGAMENTO", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PEDIDO_PAGAMENTO_PEDIDO_ID_PEDIDO",
-                        column: x => x.ID_PEDIDO,
-                        principalTable: "PEDIDO",
-                        principalColumn: "ID");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_PEDIDO_ID_CLIENTE",
                 table: "PEDIDO",
@@ -173,12 +146,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
                 column: "ID_PRODUTO");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PEDIDO_PAGAMENTO_ID_PEDIDO",
-                table: "PEDIDO_PAGAMENTO",
-                column: "ID_PEDIDO",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PRODUTO_IMAGEM_ID_PRODUTO",
                 table: "PRODUTO_IMAGEM",
                 column: "ID_PRODUTO");
@@ -189,9 +156,6 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PEDIDO_ITEM");
-
-            migrationBuilder.DropTable(
-                name: "PEDIDO_PAGAMENTO");
 
             migrationBuilder.DropTable(
                 name: "PRODUTO_IMAGEM");

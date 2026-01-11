@@ -3,12 +3,14 @@ using FoodChallenge.Order.Adapter.Controllers;
 using FoodChallenge.Order.Application.Clientes.Models.Requests;
 using FoodChallenge.Order.Application.Clientes.Models.Responses;
 using FoodChallenge.Order.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodChallenge.Order.Api.Controllers;
 
 [ApiController]
 [Route("[Controller]")]
+[Authorize(Policy = AuthorizationPolicies.OrdersApi)]
 public class IdentificacaoController(
     ILogger<IdentificacaoController> logger,
     ClienteAppController clienteAppController) : ControllerBase
