@@ -1,4 +1,4 @@
-﻿namespace FoodChallenge.Order.Application.Pagamentos.Models.Responses;
+﻿namespace FoodChallenge.Infrastructure.Clients.Payments.Models;
 
 public sealed class PagamentoResponse
 {

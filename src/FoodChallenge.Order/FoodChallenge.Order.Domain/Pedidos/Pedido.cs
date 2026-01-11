@@ -38,6 +38,11 @@ public class Pedido : DomainBase
         Atualizar();
     }
 
+    public void AdicionarPagamento(Pagamento pagamento)
+    {
+        Pagamento = pagamento;
+    }
+
     public void AtualizarValorTotal() => ValorTotal = Itens?.Sum(item => item.Valor * item.Quantidade) ?? 0;
 
     public void AtualizarStatusPago()

@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodChallenge.Common\FoodChallenge.Common.csproj" />
     <ProjectReference Include="..\FoodChallenge.Order.Domain\FoodChallenge.Order.Domain.csproj" />
+    <ProjectReference Include="..\FoodChallenge.Infrastructure.Clients.Payments\FoodChallenge.Infrastructure.Clients.Payments.csproj" />
   </ItemGroup>
 
 </Project>

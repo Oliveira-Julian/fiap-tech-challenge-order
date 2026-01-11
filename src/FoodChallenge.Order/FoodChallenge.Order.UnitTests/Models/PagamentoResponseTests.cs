@@ -23,7 +23,7 @@ public class PagamentoResponseTests : TestBase
             QrCode = qrCode,
             Status = status,
             DescricaoStatus = "Pagamento pendente",
-            IdMercadoPagoPagamento = _faker.Random.AlphaNumeric(50)
+            Id = Guid.NewGuid()
         };
 
         // Act & Assert
@@ -31,7 +31,7 @@ public class PagamentoResponseTests : TestBase
         Assert.Equal(qrCode, response.QrCode);
         Assert.Equal(status, response.Status);
         Assert.NotNull(response.DescricaoStatus);
-        Assert.NotNull(response.IdMercadoPagoPagamento);
+        Assert.NotNull(response.Id);
     }
 
     [Fact]
@@ -128,37 +128,6 @@ public class PagamentoResponseTests : TestBase
     }
 
     [Fact]
-    public void DevePermitirIdMercadoPagoValido()
-    {
-        // Arrange
-        var idMercadoPago = _faker.Random.AlphaNumeric(50);
-        var response = new PagamentoResponse { IdMercadoPagoPagamento = idMercadoPago };
-
-        // Act & Assert
-        Assert.Equal(idMercadoPago, response.IdMercadoPagoPagamento);
-    }
-
-    [Fact]
-    public void DevePermitirIdMercadoPagoNulo()
-    {
-        // Arrange
-        var response = new PagamentoResponse { IdMercadoPagoPagamento = null };
-
-        // Act & Assert
-        Assert.Null(response.IdMercadoPagoPagamento);
-    }
-
-    [Fact]
-    public void DevePermitirIdMercadoPagoVazio()
-    {
-        // Arrange
-        var response = new PagamentoResponse { IdMercadoPagoPagamento = string.Empty };
-
-        // Act & Assert
-        Assert.Empty(response.IdMercadoPagoPagamento);
-    }
-
-    [Fact]
     public void DeveSerSealedClass()
     {
         // Arrange & Act
@@ -176,19 +145,19 @@ public class PagamentoResponseTests : TestBase
         var qrCode = _faker.Random.AlphaNumeric(100);
         var status = 1;
         var descricao = "Pagamento processado";
-        var idMercadoPago = _faker.Random.AlphaNumeric(50);
+        var id = Guid.NewGuid();
 
         // Act
         response.QrCode = qrCode;
         response.Status = status;
         response.DescricaoStatus = descricao;
-        response.IdMercadoPagoPagamento = idMercadoPago;
+        response.Id = id;
 
         // Assert
         Assert.Equal(qrCode, response.QrCode);
         Assert.Equal(status, response.Status);
         Assert.Equal(descricao, response.DescricaoStatus);
-        Assert.Equal(idMercadoPago, response.IdMercadoPagoPagamento);
+        Assert.Equal(id, response.Id);
     }
 
     [Fact]

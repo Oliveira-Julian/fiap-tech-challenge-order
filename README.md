@@ -134,7 +134,7 @@ docker-compose up -d --build
 
 Esse comando irá subir os seguintes serviços:
 
-- **foodchallenge_db**: banco de dados PostgreSQL
+- **foodchallenge_postgres_db**: banco de dados PostgreSQL
 - **foodchallenge_order_migrations**: aplicação das migrations de pedidos
 - **foodchallenge_order_api**: aplicação Web API de pedidos (.NET 9)
 

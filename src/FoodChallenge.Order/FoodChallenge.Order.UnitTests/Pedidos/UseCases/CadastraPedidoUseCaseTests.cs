@@ -3,6 +3,7 @@ using Bogus.Extensions.Brazil;
 using FoodChallenge.Common.Interfaces;
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Order.Application.Clientes;
+using FoodChallenge.Order.Application.Pagamentos;
 using FoodChallenge.Order.Application.Pedidos;
 using FoodChallenge.Order.Application.Pedidos.UseCases;
 using FoodChallenge.Order.Application.Produtos;
@@ -22,6 +23,7 @@ public class CadastraPedidoUseCaseTests : TestBase
     private readonly Mock<IClienteGateway> _clienteGateway;
     private readonly Mock<IPedidoGateway> _pedidoGateway;
     private readonly Mock<IProdutoGateway> _produtoGateway;
+    private readonly Mock<IPagamentoGateway> _pagamentoGateway;
     private readonly CadastraPedidoUseCase _useCase;
 
     public CadastraPedidoUseCaseTests()
@@ -32,13 +34,15 @@ public class CadastraPedidoUseCaseTests : TestBase
         _clienteGateway = new Mock<IClienteGateway>();
         _pedidoGateway = new Mock<IPedidoGateway>();
         _produtoGateway = new Mock<IProdutoGateway>();
+        _pagamentoGateway = new Mock<IPagamentoGateway>();
 
         _useCase = new CadastraPedidoUseCase(
             _validationContext,
             _unitOfWork.Object,
             _clienteGateway.Object,
             _pedidoGateway.Object,
-            _produtoGateway.Object
+            _produtoGateway.Object,
+            _pagamentoGateway.Object
         );
     }
 
@@ -67,8 +71,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(pedidoCadastrado);
 
-        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(pagamento);*/
+        _pagamentoGateway.Setup(x => x.CadastrarPagamentoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(pagamento);
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(pedidoCadastrado.Id.Value, It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(pedidoCadastrado);
@@ -122,8 +126,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new Pedido { Id = Guid.NewGuid() });
 
-        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(PagamentoMock.CriarValido());*/
+        _pagamentoGateway.Setup(x => x.CadastrarPagamentoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(PagamentoMock.CriarValido());
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(new Pedido());
@@ -157,8 +161,8 @@ public class CadastraPedidoUseCaseTests : TestBase
         _pedidoGateway.Setup(x => x.CadastrarPedidoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new Pedido { Id = Guid.NewGuid() });
 
-        /*_pagamentoGateway.Setup(x => x.CadastrarPedidoMercadoPagoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(PagamentoMock.CriarValido());*/
+        _pagamentoGateway.Setup(x => x.CadastrarPagamentoAsync(It.IsAny<Pedido>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(PagamentoMock.CriarValido());
 
         _pedidoGateway.Setup(x => x.ObterPedidoComRelacionamentosAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>(), false))
             .ReturnsAsync(new Pedido());

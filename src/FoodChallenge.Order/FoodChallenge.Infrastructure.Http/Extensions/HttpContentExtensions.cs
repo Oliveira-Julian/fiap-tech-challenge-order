@@ -4,6 +4,11 @@ namespace FoodChallenge.Infrastructure.Http.Extensions;
 
 public static class HttpContentExtensions
 {
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     /// <summary>
     /// Realiza a deserialização do response.
     /// </summary>
@@ -14,6 +19,6 @@ public static class HttpContentExtensions
     public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content, CancellationToken cancellationToken)
     {
         var dataAsString = await content.ReadAsStringAsync(cancellationToken);
-        return JsonSerializer.Deserialize<T>(dataAsString);
+        return JsonSerializer.Deserialize<T>(dataAsString, JsonOptions);
     }
 }
