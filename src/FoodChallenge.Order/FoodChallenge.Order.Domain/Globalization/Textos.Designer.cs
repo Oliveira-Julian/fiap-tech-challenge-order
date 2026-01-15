@@ -169,6 +169,15 @@ namespace FoodChallenge.Order.Domain.Globalization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não foi possível enviar o pedido para a cozinha. Tente novamente mais tarde..
+        /// </summary>
+        public static string PreparoNaoIniciado {
+            get {
+                return ResourceManager.GetString("PreparoNaoIniciado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Imagens cadastradas para o produto. IdProduto: {0}.
         /// </summary>
         public static string ProdutoImagensCadastradas {

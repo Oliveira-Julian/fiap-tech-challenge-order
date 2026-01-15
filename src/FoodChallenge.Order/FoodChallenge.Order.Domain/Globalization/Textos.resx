@@ -174,4 +174,7 @@
   <data name="WebhookAcaoOuTipoNaoPermitido" xml:space="preserve">
     <value>Ação ou tipo não permitido.</value>
   </data>
+  <data name="PreparoNaoIniciado" xml:space="preserve">
+    <value>Não foi possível enviar o pedido para a cozinha. Tente novamente mais tarde.</value>
+  </data>
 </root>

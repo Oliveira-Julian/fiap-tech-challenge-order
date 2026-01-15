@@ -58,7 +58,7 @@ public class PedidoController(
     }
 
     /// <summary>
-    /// Atualizar Status do Pedido por Id.
+    /// Finalizar o pedido.
     /// </summary>
     /// <param name="id">Identificador do pedido.</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
@@ -67,13 +67,34 @@ public class PedidoController(
     [ProducesResponseType(typeof(Resposta), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(Resposta), StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(typeof(Resposta), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<Resposta>> AtualizarStatusPorIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<Resposta>> FinalizarPedidoAsync(Guid id, CancellationToken cancellationToken)
     {
-        logger.LogInformation(Logs.InicioExecucaoServico, nameof(PedidoController), nameof(AtualizarStatusPorIdAsync));
+        logger.LogInformation(Logs.InicioExecucaoServico, nameof(PedidoController), nameof(FinalizarPedidoAsync));
 
         var resposta = await pedidoAppController.FinalizarPedidoAsync(id, cancellationToken);
 
-        logger.LogDebug(Logs.FimExecucaoServico, nameof(PedidoController), nameof(AtualizarStatusPorIdAsync), resposta);
+        logger.LogDebug(Logs.FimExecucaoServico, nameof(PedidoController), nameof(FinalizarPedidoAsync), resposta);
+
+        return resposta is null ? NoContent() : Ok(resposta);
+    }
+
+    /// <summary>
+    /// Confirmar pagamento do pedido.
+    /// </summary>
+    /// <param name="id">Identificador do pedido.</param>
+    /// <param name="cancellationToken">Token de cancelamento</param>
+    [HttpPut("{id}/confirmarPagamento")]
+    [ProducesResponseType(typeof(Resposta<PedidoResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Resposta), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Resposta), StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(typeof(Resposta), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<Resposta>> ConfirmarPagamentoPedidoAsync(Guid id, CancellationToken cancellationToken)
+    {
+        logger.LogInformation(Logs.InicioExecucaoServico, nameof(PedidoController), nameof(ConfirmarPagamentoPedidoAsync));
+
+        var resposta = await pedidoAppController.ConfirmarPagamentoPedidoAsync(id, cancellationToken);
+
+        logger.LogDebug(Logs.FimExecucaoServico, nameof(PedidoController), nameof(ConfirmarPagamentoPedidoAsync), resposta);
 
         return resposta is null ? NoContent() : Ok(resposta);
     }

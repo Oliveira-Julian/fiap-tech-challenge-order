@@ -52,4 +52,13 @@ public class PedidoAppController(ValidationContext validationContext,
         var pedido = await useCase.ExecutarAsync(idPedido, cancellationToken);
         return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));
     }
+
+    public async Task<Resposta> ConfirmarPagamentoPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
+    {
+        var pedidoGateway = new PedidoGateway(pedidoDataSource);
+        var useCase = new FinalizaPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
+
+        var pedido = await useCase.ExecutarAsync(idPedido, cancellationToken);
+        return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));
+    }
 }
