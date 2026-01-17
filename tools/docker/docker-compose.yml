@@ -33,7 +33,7 @@ services:
     networks:
       - foodchallenge_network
     ports:
-      - "5000:5000"
+      - "5001:5001"
 
 volumes:
   foodchallenge_data:

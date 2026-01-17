@@ -3,7 +3,7 @@ services:
     image: julianoliveira/foodchallenge-order-api
     container_name: foodchallenge_order_api
     build:
-      context: ../../src/FoodChallenge.order
+      context: ../../src/FoodChallenge.Order
       dockerfile: ../../tools/docker/build/dotnet.web-api.Dockerfile
       target: final
     environment:
