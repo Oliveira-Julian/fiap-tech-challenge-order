@@ -26,6 +26,12 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositorie
                 .HasColumnName("ID_PAGAMENTO")
                 .IsRequired(false);
 
+            builder.HasOne(p => p.Pagamento)
+                .WithOne(pag => pag.Pedido)
+                .HasForeignKey<PedidoEntity>(x => x.IdPagamento)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(x => x.Codigo)
                 .HasColumnName("CODIGO")
                 .IsRequired();

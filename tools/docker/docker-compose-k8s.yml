@@ -31,4 +31,5 @@ volumes:
 
 networks:
   foodchallenge_network:
-    driver: bridge
+    external: true
+    name: fiap_foodchallenge_network

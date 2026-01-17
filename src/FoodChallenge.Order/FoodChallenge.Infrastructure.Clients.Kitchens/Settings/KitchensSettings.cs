@@ -14,6 +14,7 @@ public sealed class KitchensSettings
     public int Timeout { get; set; }
     public string ClientId { get; set; }
     public string ClientSecret { get; set; }
+    public string Scope { get; set; }
     public KitchensPaths Paths { get; set; }
 
     public class KitchensPaths

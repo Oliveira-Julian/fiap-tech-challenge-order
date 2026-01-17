@@ -13,7 +13,7 @@ internal sealed class KitchensClient(
         HttpClient httpClient,
         IMemoryCache memoryCache,
         KitchensSettings KitchensSettings,
-        IAuthenticationClient authenticationClient) : IKitchensClient
+        IKitchenAuthenticationClient authenticationClient) : IKitchensClient
 {
     public async Task<Resposta<OrdemPedidoResponse>> CadastrarPreparoAsync(CadastrarOrdemPedidoRequest request, CancellationToken cancellationToken)
     {

@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace FoodChallenge.Infrastructure.Clients.Kitchens.Clients;
 
-public class AuthenticationClient(
+public class KitchenAuthenticationClient(
     HttpClient httpClient,
     KitchensSettings KitchensSettings,
-    ILogger<AuthenticationClient> logger) : IAuthenticationClient
+    ILogger<KitchenAuthenticationClient> logger) : IKitchenAuthenticationClient
 {
     public async Task<TokenResponse> ObterTokenAsync(CancellationToken cancellationToken = default)
     {
@@ -58,7 +58,8 @@ public class AuthenticationClient(
         {
             { "grant_type", "client_credentials" },
             { "client_id", KitchensSettings.ClientId },
-            { "client_secret", KitchensSettings.ClientSecret }
+            { "client_secret", KitchensSettings.ClientSecret },
+            { "scope", KitchensSettings.Scope }
         });
 
         return new HttpRequestMessage

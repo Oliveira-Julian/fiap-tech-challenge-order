@@ -3,6 +3,7 @@ using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pe
 using FoodChallenge.Order.Application.Pedidos.Models.Requests;
 using FoodChallenge.Order.Domain.Enums;
 using FoodChallenge.Order.Domain.Pedidos;
+using FoodChallenge.Payment.Domain.Pagamentos;
 
 namespace FoodChallenge.Order.Adapter.Mappers;
 
@@ -33,7 +34,7 @@ public static class PedidoMapper
     {
         if (pedido is null) return default;
 
-        return new PedidoEntity()
+        var pedidoEntity = new PedidoEntity()
         {
             Id = pedido.Id,
             IdPagamento = pedido.IdPagamento,
@@ -47,6 +48,11 @@ public static class PedidoMapper
             ValorTotal = pedido.ValorTotal,
             Itens = pedido.Itens?.Select(PedidoItemMapper.ToEntity)?.ToList()
         };
+
+        if (pedido.Pagamento is not null)
+            pedidoEntity.Pagamento = PagamentoMapper.ToEntity(pedido.Id.Value, pedido.Pagamento);
+
+        return pedidoEntity;
     }
 
     public static Pedido ToDomain(Guid? idPedido, PedidoStatus status)

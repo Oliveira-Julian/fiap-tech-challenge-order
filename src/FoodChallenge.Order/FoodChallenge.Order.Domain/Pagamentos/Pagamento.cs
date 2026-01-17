@@ -15,5 +15,13 @@ public class Pagamento : DomainBase
         QrCode = qrCode;
         Metodo = PagamentoMetodo.Pix;
         Status = (PagamentoStatus)statusCodigo;
+        Cadastrar();
+    }
+
+    public void Cadastrar()
+    {
+        Id = Guid.NewGuid();
+        Ativo = true;
+        DataCriacao = DateTime.UtcNow;
     }
 }

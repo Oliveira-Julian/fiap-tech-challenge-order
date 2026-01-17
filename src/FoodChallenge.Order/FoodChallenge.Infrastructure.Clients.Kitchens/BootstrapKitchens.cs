@@ -19,7 +19,7 @@ public static class BootstrapKitchens
         })
           .AddHeaderPropagation();
 
-        services.AddHttpClient<IAuthenticationClient, AuthenticationClient>(client =>
+        services.AddHttpClient<IKitchenAuthenticationClient, KitchenAuthenticationClient>(client =>
         {
             client.ConfigureTimeout(settings.Timeout);
         })

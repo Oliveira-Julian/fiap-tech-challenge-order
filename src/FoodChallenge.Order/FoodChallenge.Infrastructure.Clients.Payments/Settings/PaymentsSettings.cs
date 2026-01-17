@@ -14,6 +14,7 @@ public sealed class PaymentsSettings
     public int Timeout { get; set; }
     public string ClientId { get; set; }
     public string ClientSecret { get; set; }
+    public string Scope { get; set; }
     public PaymentsPaths Paths { get; set; }
 
     public class PaymentsPaths

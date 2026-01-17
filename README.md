@@ -112,7 +112,7 @@ dotnet ef database update --project ../FoodChallenge.Infrastructure.Data.Postgre
 #### Criar Nova Migração
 ```bash
 cd src/FoodChallenge.Order/FoodChallenge.Order.Api
-dotnet ef migrations add NomeDaMigracao --project ../FoodChallenge.Infrastructure.Data.Postgres --output-dir EntityFramework/Migrations
+dotnet ef migrations add <NomeDaMigracao> --project ../FoodChallenge.Infrastructure.Data.Postgres --output-dir EntityFramework/Migrations
 ```
 
 #### Remover Última Migração

@@ -17,6 +17,14 @@ public static class AuthorizationExtensions
             {
                 options.Authority = authority;
                 options.RequireHttpsMetadata = false;
+                options.MetadataAddress = $"{authority}.well-known/openid-configuration";
+
+                // Aceitar certificados auto-assinados em desenvolvimento
+                options.BackchannelHttpHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback =
+                        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

@@ -1,4 +1,5 @@
 ﻿using FoodChallenge.Infrastructure.Clients.Payments.Models;
+using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pagamentos;
 using FoodChallenge.Order.Domain.Pedidos;
 using FoodChallenge.Payment.Domain.Pagamentos;
 
@@ -32,10 +33,26 @@ public static class PagamentoMapper
             Valor = pedidoItem.Valor
         };
     }
+
     public static Pagamento ToDomain(PagamentoResponse pagamentoResponse)
     {
         if (pagamentoResponse is null) return default;
 
         return new Pagamento(pagamentoResponse.Id, pagamentoResponse.Status, pagamentoResponse.QrCode);
+    }
+
+    public static PagamentoEntity ToEntity(Guid idPedido, Pagamento pagamento)
+    {
+        if (pagamento is null) return default;
+
+        return new PagamentoEntity
+        {
+            Id = pagamento.Id,
+            IdPedido = idPedido,
+            DataCriacao = pagamento.DataCriacao,
+            Ativo = pagamento.Ativo,
+            QrCode = pagamento.QrCode,
+            Status = (int)pagamento.Status,
+        };
     }
 }

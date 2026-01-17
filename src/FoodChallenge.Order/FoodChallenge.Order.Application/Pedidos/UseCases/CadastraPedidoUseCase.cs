@@ -44,19 +44,15 @@ public class CadastraPedidoUseCase(
 
             pedido.AtualizarValorTotal();
 
-            unitOfWork.BeginTransaction();
             var pedidoCadastrado = await pedidoGateway.CadastrarPedidoAsync(pedido, cancellationToken);
-            await unitOfWork.CommitAsync();
-
             var pagamento = await pagamentoGateway.CadastrarPagamentoAsync(pedidoCadastrado, cancellationToken);
-
-            //unitOfWork.BeginTransaction();
-            pedidoCadastrado.AdicionarPagamento(pagamento);
-            //pedidoGateway.AtualizarPedido(pedido);
-            //await unitOfWork.CommitAsync();
+            await unitOfWork.CommitAsync();
 
             pedidoCadastrado = await pedidoGateway.ObterPedidoComRelacionamentosAsync(pedidoCadastrado.Id.Value, cancellationToken);
             pedidoCadastrado.AdicionarPagamento(pagamento);
+            
+            pedidoGateway.AtualizarPedido(pedidoCadastrado);
+            await unitOfWork.CommitAsync();
 
             logger.Information(Logs.FimExecucaoServico, nameof(CadastraPedidoUseCase), nameof(ExecutarAsync), pedidoCadastrado);
 

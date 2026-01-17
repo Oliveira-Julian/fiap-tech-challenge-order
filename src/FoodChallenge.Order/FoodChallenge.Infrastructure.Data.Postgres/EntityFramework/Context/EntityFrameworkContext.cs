@@ -1,5 +1,6 @@
 ﻿using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Mapping;
+using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pagamentos.Mapping;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Pedidos.Mapping;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Produtos;
@@ -38,6 +39,7 @@ namespace FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new PedidoItemMapping());
             modelBuilder.ApplyConfiguration(new ProdutoMapping());
             modelBuilder.ApplyConfiguration(new ProdutoImagemMapping());
+            modelBuilder.ApplyConfiguration(new PedidoPagamentoMapping());
         }
     }
 }
