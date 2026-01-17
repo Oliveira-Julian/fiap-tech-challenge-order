@@ -14,8 +14,7 @@ public static class PreparoItemMapper
             Codigo = pedidoItem.Codigo,
             Categoria = pedidoItem.Produto.Categoria.ToString(),
             Nome = pedidoItem.Produto?.Nome,
-            Quantidade = pedidoItem.Quantidade,
-            Valor = pedidoItem.Valor
+            Quantidade = pedidoItem.Quantidade
         };
     }
 }

@@ -10,16 +10,16 @@ using Serilog;
 
 namespace FoodChallenge.Order.Application.Pedidos.UseCases;
 
-public class AtualizaPedidoUseCase(
+public class AtualizaStatusPedidoUseCase(
     ValidationContext validationContext,
     IUnitOfWork unitOfWork,
-    IPedidoGateway pedidoGateway) : IAtualizaPedidoUseCase
+    IPedidoGateway pedidoGateway) : IAtualizaStatusPedidoUseCase
 {
-    private readonly ILogger logger = Log.ForContext<AtualizaPedidoUseCase>();
+    private readonly ILogger logger = Log.ForContext<AtualizaStatusPedidoUseCase>();
 
     public async Task<Pedido> ExecutarAsync(Guid idPedido, PedidoStatus pedidoStatus, CancellationToken cancellationToken)
     {
-        logger.Information(Logs.InicioExecucaoServico, nameof(AtualizaPedidoUseCase), nameof(ExecutarAsync));
+        logger.Information(Logs.InicioExecucaoServico, nameof(AtualizaStatusPedidoUseCase), nameof(ExecutarAsync));
 
         try
         {
@@ -43,14 +43,14 @@ public class AtualizaPedidoUseCase(
 
             var pedidoAtualizado = await pedidoGateway.ObterPedidoAsync(pedido.Id.Value, cancellationToken);
 
-            logger.Information(Logs.FimExecucaoServico, nameof(AtualizaPedidoUseCase), nameof(ExecutarAsync), pedidoAtualizado);
+            logger.Information(Logs.FimExecucaoServico, nameof(AtualizaStatusPedidoUseCase), nameof(ExecutarAsync), pedidoAtualizado);
 
             return pedidoAtualizado;
         }
         catch (Exception ex)
         {
             await unitOfWork.RollbackAsync();
-            logger.Error(ex, Logs.ErroGenerico, nameof(AtualizaPedidoUseCase), nameof(ExecutarAsync));
+            logger.Error(ex, Logs.ErroGenerico, nameof(AtualizaStatusPedidoUseCase), nameof(ExecutarAsync));
             throw;
         }
     }

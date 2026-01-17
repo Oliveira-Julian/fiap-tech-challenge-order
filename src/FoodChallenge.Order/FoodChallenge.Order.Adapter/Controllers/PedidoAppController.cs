@@ -48,7 +48,7 @@ public class PedidoAppController(ValidationContext validationContext,
     public async Task<Resposta> FinalizarPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
     {
         var pedidoGateway = new PedidoGateway(pedidoDataSource);
-        var useCase = new AtualizaPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
+        var useCase = new AtualizaStatusPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
 
         var pedido = await useCase.ExecutarAsync(idPedido, PedidoStatus.Finalizado, cancellationToken);
         return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));
@@ -57,7 +57,7 @@ public class PedidoAppController(ValidationContext validationContext,
     public async Task<Resposta> ConfirmarPagamentoPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
     {
         var pedidoGateway = new PedidoGateway(pedidoDataSource);
-        var useCase = new AtualizaPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
+        var useCase = new AtualizaStatusPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
 
         var pedido = await useCase.ExecutarAsync(idPedido, PedidoStatus.NaFila, cancellationToken);
         return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));
@@ -66,7 +66,7 @@ public class PedidoAppController(ValidationContext validationContext,
     public async Task<Resposta> IniciarPreparacaoPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
     {
         var pedidoGateway = new PedidoGateway(pedidoDataSource);
-        var useCase = new AtualizaPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
+        var useCase = new AtualizaStatusPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
 
         var pedido = await useCase.ExecutarAsync(idPedido, PedidoStatus.EmPreparacao, cancellationToken);
         return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));
@@ -75,7 +75,7 @@ public class PedidoAppController(ValidationContext validationContext,
     public async Task<Resposta> PermitirRetiradaPedidoAsync(Guid idPedido, CancellationToken cancellationToken)
     {
         var pedidoGateway = new PedidoGateway(pedidoDataSource);
-        var useCase = new AtualizaPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
+        var useCase = new AtualizaStatusPedidoUseCase(validationContext, unitOfWork, pedidoGateway);
 
         var pedido = await useCase.ExecutarAsync(idPedido, PedidoStatus.AguardandoRetirada, cancellationToken);
         return Resposta<PedidoResponse>.ComSucesso(PedidoPresenter.ToResponse(pedido));

@@ -17,7 +17,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
     private readonly ValidationContext _validationContext;
     private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly Mock<IPedidoGateway> _pedidoGateway;
-    private readonly AtualizaPedidoUseCase _useCase;
+    private readonly AtualizaStatusPedidoUseCase _useCase;
 
     public FinalizaPedidoUseCaseTests()
     {
@@ -26,7 +26,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
         _unitOfWork = new Mock<IUnitOfWork>();
         _pedidoGateway = new Mock<IPedidoGateway>();
 
-        _useCase = new AtualizaPedidoUseCase(
+        _useCase = new AtualizaStatusPedidoUseCase(
             _validationContext,
             _unitOfWork.Object,
             _pedidoGateway.Object
@@ -42,7 +42,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
             .ReturnsAsync((Pedido)null);
 
         // Act
-        var result = await _useCase.ExecutarAsync(idPedido, CancellationToken.None);
+        var result = await _useCase.ExecutarAsync(idPedido, PedidoStatus.Finalizado, CancellationToken.None);
 
         // Assert
         Assert.Null(result);
@@ -62,7 +62,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
             .ReturnsAsync(pedido);
 
         // Act
-        var result = await _useCase.ExecutarAsync(pedido.Id.Value, CancellationToken.None);
+        var result = await _useCase.ExecutarAsync(pedido.Id.Value, PedidoStatus.Finalizado, CancellationToken.None);
 
         // Assert
         Assert.Null(result);
@@ -84,7 +84,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
             .ReturnsAsync(pedido);
 
         // Act
-        var result = await _useCase.ExecutarAsync(idPedido, CancellationToken.None);
+        var result = await _useCase.ExecutarAsync(idPedido, PedidoStatus.Finalizado, CancellationToken.None);
 
         // Assert
         Assert.NotNull(result);
@@ -106,7 +106,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
 
         // Act & Assert
         await Assert.ThrowsAsync<Exception>(() =>
-            _useCase.ExecutarAsync(pedido.Id.Value, CancellationToken.None));
+            _useCase.ExecutarAsync(pedido.Id.Value, PedidoStatus.Finalizado, CancellationToken.None));
 
         _unitOfWork.Verify(x => x.RollbackAsync(), Times.Once);
     }

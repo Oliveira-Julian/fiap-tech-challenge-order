@@ -21,7 +21,6 @@ public static class PreparoMapper
         {
             IdPedido = pedido.Id.Value,
             CodigoPedido = pedido.Codigo,
-            ValorTotal = pedido.ValorTotal,
             Itens = pedido.Itens?.Select(PreparoItemMapper.ToRequest)
         };
     }
