@@ -15,7 +15,7 @@ internal sealed class KitchensClient(
         KitchensSettings KitchensSettings,
         IAuthenticationClient authenticationClient) : IKitchensClient
 {
-    public async Task<Resposta<OrdemPedidoResponse>> CadastrarPreparoAsync(CriarOrdemPedidoRequest request, CancellationToken cancellationToken)
+    public async Task<Resposta<OrdemPedidoResponse>> CadastrarPreparoAsync(CadastrarOrdemPedidoRequest request, CancellationToken cancellationToken)
     {
         logger.LogDebug(Logs.InicioExecucao, KitchensSettings.Paths.CadastrarOrdemPedido);
 

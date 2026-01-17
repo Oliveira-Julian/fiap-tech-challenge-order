@@ -5,11 +5,11 @@ namespace FoodChallenge.Order.Adapter.Mappers;
 
 public static class PreparoItemMapper
 {
-    public static CriarOrdemPedidoItemRequest ToRequest(PedidoItem pedidoItem)
+    public static CadastrarOrdemPedidoItemRequest ToRequest(PedidoItem pedidoItem)
     {
         if (pedidoItem is null) return default;
 
-        return new CriarOrdemPedidoItemRequest
+        return new CadastrarOrdemPedidoItemRequest
         {
             Codigo = pedidoItem.Codigo,
             Categoria = pedidoItem.Produto.Categoria.ToString(),

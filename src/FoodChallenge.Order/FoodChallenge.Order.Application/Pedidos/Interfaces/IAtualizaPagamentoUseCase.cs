@@ -4,5 +4,5 @@ namespace FoodChallenge.Order.Application.Pedidos.Interfaces;
 
 public interface IConfirmarPagamentoUseCase
 {
-    Task<Pedido> ExecutarAsync(Guid idPedido, CancellationToken cancellationToken);
+    Task<Pedido> ExecutarAsync(Guid idPedido, PedidoStatus status, CancellationToken cancellationToken);
 }

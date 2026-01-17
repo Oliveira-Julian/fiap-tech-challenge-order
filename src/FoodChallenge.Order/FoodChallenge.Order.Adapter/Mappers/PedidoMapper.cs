@@ -49,6 +49,17 @@ public static class PedidoMapper
         };
     }
 
+    public static Pedido ToDomain(Guid? idPedido, PedidoStatus status)
+    {
+        if (!idPedido.HasValue) return default;
+
+        return new Pedido()
+        {
+            Id = idPedido,
+            Status = status
+        };
+    }
+
     public static Pedido ToDomain(Guid? idCliente)
     {
         if (!idCliente.HasValue) return default;

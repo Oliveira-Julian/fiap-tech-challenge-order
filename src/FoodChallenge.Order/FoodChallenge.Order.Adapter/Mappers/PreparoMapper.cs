@@ -13,11 +13,11 @@ public static class PreparoMapper
         return new OrdemPedido(response.Id, response.IdPedido, response.Status, response.DataInicioPreparacao, response.DataFimPreparacao);
     }
 
-    public static CriarOrdemPedidoRequest ToRequest(Pedido pedido)
+    public static CadastrarOrdemPedidoRequest ToRequest(Pedido pedido)
     {
         if (pedido is null) return default;
 
-        return new CriarOrdemPedidoRequest
+        return new CadastrarOrdemPedidoRequest
         {
             IdPedido = pedido.Id.Value,
             CodigoPedido = pedido.Codigo,

@@ -17,7 +17,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
     private readonly ValidationContext _validationContext;
     private readonly Mock<IUnitOfWork> _unitOfWork;
     private readonly Mock<IPedidoGateway> _pedidoGateway;
-    private readonly FinalizaPedidoUseCase _useCase;
+    private readonly AtualizaPedidoUseCase _useCase;
 
     public FinalizaPedidoUseCaseTests()
     {
@@ -26,7 +26,7 @@ public class FinalizaPedidoUseCaseTests : TestBase
         _unitOfWork = new Mock<IUnitOfWork>();
         _pedidoGateway = new Mock<IPedidoGateway>();
 
-        _useCase = new FinalizaPedidoUseCase(
+        _useCase = new AtualizaPedidoUseCase(
             _validationContext,
             _unitOfWork.Object,
             _pedidoGateway.Object
