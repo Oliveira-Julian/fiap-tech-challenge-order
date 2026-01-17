@@ -1,45 +1,28 @@
-﻿using FoodChallenge.Order.Domain.Enums;
+﻿using FoodChallenge.Infrastructure.Clients.Kitchens.Models;
+using FoodChallenge.Order.Domain.Pedidos;
 using FoodChallenge.Order.Domain.Preparos;
 
 namespace FoodChallenge.Order.Adapter.Mappers;
 
 public static class PreparoMapper
 {
-    public static OrdemPedido ToDomain(OrdemPedidoEntity ordemPedidoEntity)
+    public static OrdemPedido ToDomain(OrdemPedidoResponse response)
     {
-        if (ordemPedidoEntity is null) return default;
+        if (response is null) return default;
 
-        return new OrdemPedido()
-        {
-            Id = ordemPedidoEntity.Id,
-            IdPedido = ordemPedidoEntity.IdPedido,
-            DataAtualizacao = ordemPedidoEntity.DataAtualizacao,
-            DataCriacao = ordemPedidoEntity.DataCriacao,
-            DataExclusao = ordemPedidoEntity.DataExclusao,
-            Ativo = ordemPedidoEntity.Ativo,
-            Status = (PreparoStatus)ordemPedidoEntity.Status,
-            DataInicioPreparacao = ordemPedidoEntity.DataInicioPreparacao,
-            DataFimPreparacao = ordemPedidoEntity.DataFimPreparacao,
-            Pedido = PedidoMapper.ToDomain(ordemPedidoEntity.Pedido)
-        };
+        return new OrdemPedido(response.Id, response.IdPedido, response.Status, response.DataInicioPreparacao, response.DataFimPreparacao);
     }
 
-    public static OrdemPedidoRequest ToRequest(OrdemPedido ordemPedido)
+    public static CriarOrdemPedidoRequest ToRequest(Pedido pedido)
     {
-        if (ordemPedido is null) return default;
+        if (pedido is null) return default;
 
-        return new OrdemPedidoEntity
+        return new CriarOrdemPedidoRequest
         {
-            Id = ordemPedido.Id,
-            IdPedido = ordemPedido.IdPedido,
-            DataAtualizacao = ordemPedido.DataAtualizacao,
-            DataCriacao = ordemPedido.DataCriacao,
-            DataExclusao = ordemPedido.DataExclusao,
-            Ativo = ordemPedido.Ativo,
-            Status = (int)ordemPedido.Status,
-            DataInicioPreparacao = ordemPedido.DataInicioPreparacao,
-            DataFimPreparacao = ordemPedido.DataFimPreparacao,
-            Pedido = PedidoMapper.ToEntity(ordemPedido.Pedido)
+            IdPedido = pedido.Id.Value,
+            CodigoPedido = pedido.Codigo,
+            ValorTotal = pedido.ValorTotal,
+            Itens = pedido.Itens?.Select(PreparoItemMapper.ToRequest)
         };
     }
 }

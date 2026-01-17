@@ -38,16 +38,16 @@ public class ConfirmarPagamentoUseCase(
             if (validationContext.HasValidations)
                 return default;
 
-            pedido.AtualizarStatusPago();
+            var preparoCadastradoSucesso = await CadastrarPreparoAsync(pedido, cancellationToken);
 
-            var ordemPedido = new OrdemPedido(pedido);
-            ordemPedido = await ordemPedidoGateway.CadastrarAsync(ordemPedido, cancellationToken);
-
-            if (!ordemPedido.Id.HasValue)
+            if (!preparoCadastradoSucesso)
             {
-                validationContext.AddValidation(Textos.PreparoNaoIniciado));
+                validationContext.AddValidation(Textos.PreparoNaoIniciado);
                 return default;
             }
+
+
+            pedido.AtualizarStatusPago();
 
             unitOfWork.BeginTransaction();
             pedidoGateway.AtualizarPedido(pedido);
@@ -65,5 +65,18 @@ public class ConfirmarPagamentoUseCase(
             logger.Error(ex, Logs.ErroGenerico, nameof(FinalizaPedidoUseCase), nameof(ExecutarAsync));
             throw;
         }
+    }
+
+    private async Task<bool> CadastrarPreparoAsync(Pedido pedido, CancellationToken cancellationToken)
+    {
+        var ordemPedido = await ordemPedidoGateway.CadastrarAsync(pedido, cancellationToken);
+
+        if (!ordemPedido.Id.HasValue)
+        {
+            validationContext.AddValidation(Textos.PreparoNaoIniciado);
+            return false;
+        }
+
+        return true;
     }
 }

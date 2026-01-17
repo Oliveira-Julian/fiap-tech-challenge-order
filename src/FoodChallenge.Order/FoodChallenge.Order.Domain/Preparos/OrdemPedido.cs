@@ -1,22 +1,21 @@
 ﻿using FoodChallenge.Order.Domain.Entities;
 using FoodChallenge.Order.Domain.Enums;
-using FoodChallenge.Order.Domain.Pedidos;
 
 namespace FoodChallenge.Order.Domain.Preparos;
 
 public class OrdemPedido : DomainBase
 {
     public Guid IdPedido { get; set; }
-    public Pedido Pedido { get; set; }
     public PreparoStatus Status { get; set; }
+    public DateTime? DataInicioPreparacao { get; set; }
+    public DateTime? DataFimPreparacao { get; set; }
 
-    public OrdemPedido(Pedido pedido)
+    public OrdemPedido(Guid id, Guid idPedido, int status, DateTime? dataInicioPreparacao, DateTime? datafimPreparacao)
     {
-        if (pedido is null)
-            return;
-
-        IdPedido = pedido.Id.Value;
-        Pedido = pedido;
-        Status = PreparoStatus.NaFilaParaPreparacao;
+        Id = id;
+        IdPedido = idPedido;
+        Status = (PreparoStatus)(status);
+        DataInicioPreparacao = dataInicioPreparacao;
+        DataFimPreparacao = datafimPreparacao;
     }
 }

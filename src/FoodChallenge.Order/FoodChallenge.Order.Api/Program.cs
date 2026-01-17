@@ -1,5 +1,6 @@
 using FoodChallenge.Common.Validators;
 using FoodChallenge.Infrastructure.Clients.Payments;
+using FoodChallenge.Infrastructure.Clients.Kitchens;
 using FoodChallenge.Infrastructure.Data.Postgres.EntityFramework.Repositories.Clientes.Interfaces;
 using FoodChallenge.Ioc;
 using FoodChallenge.Order.Api.Filters;
@@ -13,6 +14,7 @@ builder.Services.AddRepositoryDependency();
 builder.Services.AddOpenIdDictValidation(configuration);
 
 BootstrapPayments.Configure(builder.Services, configuration);
+BootstrapKitchens.Configure(builder.Services, configuration);
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options =>
