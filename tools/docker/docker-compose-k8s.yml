@@ -15,6 +15,11 @@ services:
       FoodChallengePayments__Timeout: ${FoodChallengePayments__Timeout}
       FoodChallengePayments__ClientId: ${FoodChallengePayments__ClientId}
       FoodChallengePayments__ClientSecret: ${FoodChallengePayments__ClientSecret}
+      FoodChallengeKitchens__BaseUrl: ${FoodChallengeKitchens__BaseUrl}
+      FoodChallengeKitchens__AuthUrl: ${FoodChallengeKitchens__AuthUrl}
+      FoodChallengeKitchens__Timeout: ${FoodChallengeKitchens__Timeout}
+      FoodChallengeKitchens__ClientId: ${FoodChallengeKitchens__ClientId}
+      FoodChallengeKitchens__ClientSecret: ${FoodChallengeKitchens__ClientSecret}
     networks:
       - foodchallenge_network
     ports:
